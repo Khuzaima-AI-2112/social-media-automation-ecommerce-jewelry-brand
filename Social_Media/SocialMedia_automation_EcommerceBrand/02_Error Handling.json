@@ -1,0 +1,239 @@
+{
+  "name": "Social Media Error Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c85ea3b2-8591-4220-8718-4ba278352c67",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the input data from the Error Trigger (assuming one item)\nconst inputItem = $input.first().json;\n\n// Initialize variables based on error type\nlet executionData, errorData, workflowData, nodeName, nodeType, errorMessage, errorStack, inputData, executionId, workflowId, workflowName;\n\nif (inputItem.execution) {\n  // Standard error case\n  executionData = inputItem.execution;\n  workflowData = inputItem.workflow;\n  errorData = executionData.error;\n  \n  executionId = executionData.id || 'Unknown';\n  workflowId = workflowData.id || 'Unknown';\n  workflowName = workflowData.name || 'AI Social Media Agent';\n  \n  nodeName = executionData.lastNodeExecuted || 'Unknown Node';\n  nodeType = 'Unknown Type'; // Not available in standard case; adjust if needed\n  \n  errorMessage = errorData.message || 'No error message available';\n  errorStack = errorData.stack || 'No stack trace available';\n  inputData = JSON.stringify({}); // Input data not provided by Error Trigger; stub or remove if unnecessary\n} else if (inputItem.trigger) {\n  // Error in trigger node case\n  executionData = inputItem.trigger;\n  workflowData = inputItem.workflow;\n  errorData = executionData.error;\n  \n  executionId = 'Unknown'; // Not available in trigger error case\n  workflowId = workflowData.id || 'Unknown';\n  workflowName = workflowData.name || 'AI Social Media Agent';\n  \n  nodeName = errorData.node?.name || 'Unknown Node';\n  nodeType = errorData.node?.type || 'Unknown Type';\n  \n  errorMessage = errorData.message || 'No error message available';\n  errorStack = errorData.cause?.stack || errorData.stack || 'No stack trace available';\n  inputData = JSON.stringify(errorData.node?.parameters || {}); // Approximate input data from node params; adjust as needed\n} else {\n  // Fallback for unexpected input: Log and set defaults\n  console.log('Unexpected input data structure from Error Trigger:', JSON.stringify(inputItem, null, 2));\n  \n  // Set fallback values to allow workflow to continue\n  executionData = {};\n  workflowData = {};\n  errorData = {};\n  \n  executionId = 'Unknown';\n  workflowId = 'Unknown';\n  workflowName = 'AI Social Media Agent (Fallback)';\n  nodeName = 'Unknown Node';\n  nodeType = 'Unknown Type';\n  errorMessage = 'Unexpected error data structure from Error Trigger';\n  errorStack = 'No stack trace available (fallback)';\n  inputData = JSON.stringify(inputItem || {}); // Use raw input as fallback for inputData\n}\n\n// Define severity function (add your logic here)\nfunction determineSeverity(errData) {\n  // Example: Customize based on error type\n  if (errData.message?.includes('critical')) return 'High';\n  return 'Medium';\n}\n\nconst errorInfo = {\n  workflowName,\n  executionId,\n  timestamp: new Date().toISOString(),\n  nodeName,\n  nodeType,\n  errorMessage,\n  errorStack,\n  inputData,\n  workflowId,\n  severity: determineSeverity(errorData)\n};\n\n// Define email fields (customize as needed)\nconst emailSubject = `Error in Workflow: ${errorInfo.workflowName}`;\nconst emailBody = `\nTimestamp: ${errorInfo.timestamp}\nNode: ${errorInfo.nodeName} (${errorInfo.nodeType})\nError: ${errorInfo.errorMessage}\nStack: ${errorInfo.errorStack}\nInput Data: ${errorInfo.inputData}\nSeverity: ${errorInfo.severity}\n`;\n\n// Output for downstream nodes (email and Google Sheets)\nreturn [\n  {\n    json: {\n      emailSubject,\n      emailBody,\n      errorInfo  // Pass for Google Sheets logging\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f76dbd75-c7a3-4a5c-9d6e-50a79f7ae265",
+      "name": "Format Error Information"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4",
+          "mode": "list",
+          "cachedResultName": "AI Agent Product Tracking",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1222358582,
+          "mode": "list",
+          "cachedResultName": "Error Logs - Social Media Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit#gid=1222358582"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "WorkflowName": "{{ $json.errorInfo.workflowName }}",
+            "NodeName": "{{ $json.errorInfo.nodeName }}",
+            "NodeType": "{{ $json.errorInfo.nodeType }}",
+            "ErrorMessage": "{{ $json.errorInfo.errorMessage }}",
+            "ExecutionId": "{{ $json.errorInfo.executionId }}",
+            "InputData": "{{ $json.errorInfo.inputData }}",
+            "Status": "Logged"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "WorkflowName",
+              "displayName": "WorkflowName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "NodeName",
+              "displayName": "NodeName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "NodeType",
+              "displayName": "NodeType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ErrorMessage",
+              "displayName": "ErrorMessage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ExecutionId",
+              "displayName": "ExecutionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "InputData",
+              "displayName": "InputData",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ResolutionNotes",
+              "displayName": "ResolutionNotes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        0
+      ],
+      "id": "5baadcb0-7709-41f1-b714-57410e6d24ad",
+      "name": "Error logs",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCTgTNyInybAewHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "vincentodailypost@gmail.com",
+        "toEmail": "vincentodailypost@gmail.com",
+        "subject": "={{ $json.emailSubject }}",
+        "emailFormat": "={{ $json.emailBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "2e9d9122-af2d-418c-b760-aeed4eeb2c7e",
+      "name": "Send Email Notification",
+      "webhookId": "99b6de49-44da-4fc9-b158-73450dec01f1",
+      "credentials": {
+        "smtp": {
+          "id": "20X7nZkeBzT86bQP",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Error Information",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Error Information": {
+      "main": [
+        [
+          {
+            "node": "Send Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email Notification": {
+      "main": [
+        [
+          {
+            "node": "Error logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9672d743-69fe-44b0-a9bb-741a1f2df8af",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3c1bb73204d68c792dce11bd22f499de61da1bd4bce6a555cb2532d60421b6cc"
+  },
+  "id": "OxSyNU761pD6kF02",
+  "tags": [
+    {
+      "createdAt": "2025-09-02T05:39:38.574Z",
+      "updatedAt": "2025-09-02T05:39:38.574Z",
+      "id": "oxaDYZaPO7Sd3uhJ",
+      "name": "error handling"
+    }
+  ]
+}

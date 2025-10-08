@@ -1,0 +1,1030 @@
+{
+  "name": "AI Social Media Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -208,
+        -16
+      ],
+      "id": "6cf09e0e-588d-4446-b3eb-5936f59ddc15",
+      "name": "Schedule Trigger",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://vincento.lv/wp-content/uploads/woo-product-feed-pro/xml/m62DUBAr6Pbqy7crlAfYsiGt3rqoHu8C.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        96,
+        -224
+      ],
+      "id": "1bb46c80-9e21-48be-ade4-04452c1b5864",
+      "name": "HTTP Request",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.xml",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -80
+      ],
+      "id": "d74a069a-8331-4d6e-87b6-3b01162701e7",
+      "name": "XML",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "ProductID"
+          ],
+          "schema": [
+            {
+              "id": "ProductID",
+              "displayName": "ProductID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Image URL",
+              "displayName": "Image URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ProductPageURL",
+              "displayName": "ProductPageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostData",
+              "displayName": "PostData",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LastUpdated",
+              "displayName": "LastUpdated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "products",
+              "displayName": "products",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "totalCount",
+              "displayName": "totalCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "processedAt",
+              "displayName": "processedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostDate",
+              "displayName": "PostDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        -16
+      ],
+      "id": "077f4d8a-81b5-4c98-939f-8b800a6cd70f",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCTgTNyInybAewHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit#gid=0"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "specifyRange"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        704,
+        -208
+      ],
+      "id": "6eb65b84-5305-4ef3-8daa-00d22d800886",
+      "name": "Get row(s) in sheet",
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCTgTNyInybAewHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Tu esi radošs sociālo mediju mārketinga speciālists juvelierizstrādājumu zīmolam. Ģenerē aizraujošus, reklāmas ierakstus, balstoties uz produkta detaļām. Ierakstiem jābūt pozitīviem, pārliecinošiem un ar aicinājumu rīkoties. Vienmēr atbildi TIKAI ar derīgu JSON, bez papildu teksta, skaidrojumiem vai markdown.\n\n",
+              "role": "system"
+            },
+            {
+              "content": "=Balstoties uz šādām juvelierizstrādājuma detaļām, izveido DIVAS versijas sociālo mediju ieraksta tekstam:\n\nProdukta nosaukums: {{ $json.Name }}\nApraksts: {{ $json.Description }}\nCena: {{ $json.Price }}\nAttēla URL: {{ $json.ImageURL }} (vari īsi aprakstīt attēlu, bet fokusējies uz tekstu)\nProdukta lapas URL: {{ $json.ProductPageURL }}\nKategorija: {{ $json.Category || 'Juvelierizstrādājumi' }}\n\n1. Versija: Facebook – garāks teksts (150–250 vārdi), sarunvalodas stilā, piemērots uzņēmuma lapai. Iekļauj stāstījumu, priekšrocības, aicinājumu rīkoties (piem., \"Iepērcies tagad!\"), un beigās pievieno 2–3 atbilstošus tēmturus. Iekļauj saiti uz produkta lapu.\n\n2. Versija: Instagram – īsāks teksts (50–100 vārdi), vizuāli pievilcīgs ar emocijzīmēm, sajūsmināts tonis un 5–7 tēmturi. Fokusējies uz estētiku un steidzamību. Pievieno aicinājumu rīkoties (swipe-up vai links bio) un piemin produkta lapu.\n\nIzvades formāts: JSON objekts ar atslēgām \"facebookPost\" un \"instagramPost\", katrā tikai ieraksta teksts.\n"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "frequency_penalty": 0.5
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        864,
+        0
+      ],
+      "id": "cda72129-18a1-41d1-bc79-5b8158194636",
+      "name": "Generate Post Content with OpenAI",
+      "retryOnFail": false,
+      "credentials": {
+        "openAiApi": {
+          "id": "8koivhc5Ax5axXSi",
+          "name": "OpenAi account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse XML RSS feed data and structure products\nconst data = $json;\nconst products = [];\n\n// Navigate through the XML structure to find products\nif (data.rss && data.rss.channel && data.rss.channel.item) {\n  const xmlProducts = Array.isArray(data.rss.channel.item) \n    ? data.rss.channel.item \n    : [data.rss.channel.item];\n  \n  xmlProducts.forEach(product => {\n    products.push({\n      ProductID: product['g:id'] || Math.random().toString(36).substr(2, 9),\n      Name: product['g:title'],\n      Price: product['g:price'] || 'Contact for price',\n      Description: product['g:description'],\n      ImageURL: product['g:image_link'],\n      AdditionalImageURL: product['g:additional_image_link'],\n      ProductPageURL: product['g:link'],\n      Availability: product['g:availability'],\n      Category: 'Jewelry',\n      Status: 'pending',\n      LastUpdated: new Date().toISOString()\n    });\n  });\n}\n\n// Return all products as a single consolidated object\nreturn {\n  json: {\n    products: products,\n    totalCount: products.length,\n    processedAt: new Date().toISOString()\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        64
+      ],
+      "id": "3290afe1-67f0-4182-bd73-c036dd727dde",
+      "name": "Parse XML RSS feed data and structure products"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare individual products for Google Sheets\nconst data = $json;\nconst results = [];\n\n// Extract each product from the products array\nif (data.products && Array.isArray(data.products)) {\n  data.products.forEach(product => {\n    results.push({\n      ProductID: product.ProductID,\n      Name: product.Name,\n      Price: product.Price,\n      Description: product.Description,\n      ImageURL: product.ImageURL,\n      ProductPageURL: product.ProductPageURL,\n      Availability: product.Availability,\n      Status: product.Status,\n      PostDate: '', // Empty initially\n      LastUpdated: product.LastUpdated\n    });\n  });\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        224
+      ],
+      "id": "d3d09da4-69ac-4567-8d27-a158c9e4dff5",
+      "name": "Prepare individual products for Google Sheets"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Input: Array of sheet rows from Google Sheets\nconst rows = $input.all();  // Get all input items (rows)\nconst pendingProducts = [];\n\n// Filter for pending products\nrows.forEach(row => {\n  const product = row.json;  // Each row is a JSON object\n  if (product.Status === 'pending') {\n    pendingProducts.push(product);\n  }\n});\n\nlet selectedProduct = null;\n\nif (pendingProducts.length > 0) {\n  // Select a random index\n  const randomIndex = Math.floor(Math.random() * pendingProducts.length);\n  selectedProduct = pendingProducts[randomIndex];\n  // Optionally, add a timestamp for when it was selected\n  selectedProduct.SelectionTimestamp = new Date().toISOString();\n  console.log(`Selected random pending product: ${selectedProduct.Name}`);\n} else {\n  // Fallback: Select random from all products, or handle no products\n  if (rows.length > 0) {\n    const randomIndex = Math.floor(Math.random() * rows.length);\n    selectedProduct = rows[randomIndex].json;\n    selectedProduct.SelectionTimestamp = new Date().toISOString();\n    selectedProduct.IsFallback = true;  // Flag it as fallback\n    console.log(`No pending products; selected random from all: ${selectedProduct.Name}`);\n  } else {\n    // No products at all\n    return [{ json: { error: 'No products found in sheet' } }];\n  }\n}\n\n// Output the single selected product\nreturn [{ json: selectedProduct }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        0
+      ],
+      "id": "d99e60c8-c2c0-488c-832e-caa6e97f3df4",
+      "name": "Selecting random products"
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "251786828236784",
+        "edge": "photos",
+        "sendBinaryData": true,
+        "binaryPropertyName": "data",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "caption",
+                "value": "={{ $node[\"Generate Post Content with OpenAI\"].json.message.content.facebookPost }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        -224
+      ],
+      "id": "b47d00c0-f253-4539-b0e6-46223f4ceb96",
+      "name": "Publish to Facebook page",
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pNjRq4m3tx5ImDSH",
+          "name": "Facebook Graph account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Selecting random products').item.json.ImageURL }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          },
+          "timeout": "={{ 10000 }}"
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1280,
+        -128
+      ],
+      "id": "f3a544df-99b3-4cc3-9630-8dedd410449f",
+      "name": "Download Product Image",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "17841401514995293",
+        "edge": "media",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "image_url",
+                "value": "={{ $('Selecting random products').item.json.ImageURL }}"
+              },
+              {
+                "name": "caption",
+                "value": "={{ $('Generate Post Content with OpenAI').item.json.message.content.instagramPost }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        96
+      ],
+      "id": "0cd70e7a-47d8-43cf-95f1-70abd2d161e2",
+      "name": "Instagram Media Container",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 2000,
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pNjRq4m3tx5ImDSH",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "graphApiVersion": "v23.0",
+        "node": "17841401514995293",
+        "edge": "media_publish",
+        "options": {
+          "queryParameters": {
+            "parameter": [
+              {
+                "name": "creation_id",
+                "value": "={{ $(\"Instagram Media Container\").item.json.id }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.facebookGraphApi",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        384
+      ],
+      "id": "144629a4-a1ce-4760-92cb-d981517e84f9",
+      "name": "Publish Instagram Post",
+      "credentials": {
+        "facebookGraphApi": {
+          "id": "pNjRq4m3tx5ImDSH",
+          "name": "Facebook Graph account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4",
+          "mode": "list",
+          "cachedResultName": "AI Agent Product Tracking",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fdKbYIL31AZOOHAm-JTIbGClzA_ELiZCnL8GauCM1t4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "ProductID": "{{ $('Selecting random products').item.json.ProductID }}",
+            "Status": "posted",
+            "PostDate": "{{ new Date().toISOString() }}",
+            "FacebookPostID": "{{ $('Publish to Facebook page').first().json.id }}",
+            "InstagramPostID": "{{ $('Publish Instagram Post').first().json.id }}",
+            "LastUpdated": "{{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [
+            "ProductID"
+          ],
+          "schema": [
+            {
+              "id": "ProductID",
+              "displayName": "ProductID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Image URL",
+              "displayName": "Image URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ProductPageURL",
+              "displayName": "ProductPageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Availability",
+              "displayName": "Availability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PostData",
+              "displayName": "PostData",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "LastUpdated",
+              "displayName": "LastUpdated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "products",
+              "displayName": "products",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "totalCount",
+              "displayName": "totalCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "processedAt",
+              "displayName": "processedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ImageURL",
+              "displayName": "ImageURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "PostDate",
+              "displayName": "PostDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "FacebookPostID",
+              "displayName": "FacebookPostID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "InstagramPostID",
+              "displayName": "InstagramPostID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2400,
+        -128
+      ],
+      "id": "8ab27666-6c92-4c87-a6a5-9211a9817754",
+      "name": "Update Product Status",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCTgTNyInybAewHT",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check for errors in media container creation\nconst input = $input.first();\n\nif (input?.json?.error) {\n  console.log('Instagram media container error:', input.json.error);\n  \n  return [{\n    json: {\n      error: 'instagram_container_failed',\n      message: input.json.error.message,\n      productId: $('Selecting random products').item.json.ProductID,\n      skipInstagram: true\n    }\n  }];\n}\n\n// If no error, pass through the data\nreturn [input];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        240
+      ],
+      "id": "ff35daa7-c070-4895-86d7-160ec3afb794",
+      "name": "Handle Instagram Container Errors"
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $input.first();\nconsole.log('Input Data Received:', JSON.stringify(inputData, null, 2));\nconst sheetData = $(\"Get row(s) in sheet\").items;\nconsole.log('Sheet Data Received:', JSON.stringify(sheetData, null, 2));\nconst today = new Date().toDateString();\nlet todaysPosts = 0;\nif (sheetData && sheetData.length > 0) {\n  sheetData.forEach(row => {\n    if (row.json && row.json.PostDate && row.json.InstagramPostID && row.json.InstagramPostID !== 'failed') {\n      try {\n        const postDate = new Date(row.json.PostDate).toDateString();\n        console.log(`Checking row PostDate: ${postDate}, InstagramPostID: ${row.json.InstagramPostID}`);\n        if (postDate === today) {\n          todaysPosts++;\n          console.log(`Incremented todaysPosts to ${todaysPosts}`);\n        }\n      } catch (e) {\n        console.log(`Error parsing PostDate for row: ${JSON.stringify(row)}, Error: ${e.message}`);\n      }\n    }\n  });\n} else {\n  console.log('No sheet data available or invalid sheet data');\n}\nconsole.log(`Instagram posts today: ${todaysPosts}`);\nconst result = {\n  ...inputData.json,\n  todaysPosts: todaysPosts,\n  skipInstagram: todaysPosts >= 20,\n  reason: todaysPosts >= 20 ? 'Daily Instagram limit reached' : undefined,\n  InstagramPostID: todaysPosts >= 20 ? 'skipped_due_to_limit' : undefined\n};\nif (result.skipInstagram) {\n  console.log('Daily limit reached, skipping Instagram');\n} else {\n  console.log('Proceeding with Instagram posting');\n}\nreturn [{ json: result }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        -48
+      ],
+      "id": "52369a20-6823-4238-8f05-1a8034935d89",
+      "name": "Check Instagram Rate Limit"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2048,
+        -128
+      ],
+      "id": "05f9ce17-5f7f-4d2b-be29-6449a22f8d46",
+      "name": "Combine Post Results"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first();\nconst facebookData = input.json[0] || {}; // First item from Facebook branch\nconst instagramData = input.json[1] || {}; // Second item from Instagram branch\nconst productNode = $('Selecting random products');\nconst productData = (productNode && productNode.all().length && productNode.first().json) ? productNode.first() : { json: {} };\n\nconst result = {\n  ProductID: productData.json.ProductID || '',\n  Status: 'posted',\n  PostDate: new Date().toISOString(),\n  FacebookPostID: facebookData.id || 'failed',\n  InstagramPostID: instagramData.id || (instagramData.skipInstagram ? 'skipped_due_to_limit' : 'failed'),\n  PostingStatus: 'both_attempted'\n};\n\nif (facebookData.id && instagramData.id) {\n  result.PostingStatus = 'both_successful';\n} else if (facebookData.id) {\n  result.PostingStatus = 'facebook_only';\n} else if (instagramData.id) {\n  result.PostingStatus = 'instagram_only';\n} else {\n  result.PostingStatus = 'both_failed';\n}\n\nif (instagramData.skipInstagram) {\n  result.PostingStatus = 'facebook_only';\n  result.InstagramPostID = 'skipped_due_to_limit';\n}\n\nreturn [{ json: result }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2224,
+        -128
+      ],
+      "id": "a907ecea-a4ef-4fc5-981e-4d9bc90af94c",
+      "name": "Merge Post Results"
+    },
+    {
+      "parameters": {
+        "content": "# Data Collection & Storage Phase\n**Nodes Involved**: Schedule Trigger → HTTP Request → XML Parser → Parse XML RSS Feed → Prepare Individual Products → Append/Update Google Sheets\n\n**What Happens**:\n- Workflow triggers automatically at 8:00 AM daily\n- Fetches latest product data from vincento.lv XML feed\n- Converts XML to structured JSON format\n- Extracts key product information (ID, name, price, description, images, links)\n- Formats each product as individual database records\n- Updates Google Sheets with new products or changes to existing ones",
+        "height": 1072,
+        "width": 880,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -288,
+        -544
+      ],
+      "typeVersion": 1,
+      "id": "566ca15e-281b-4b26-ba29-3efc4984a6fa",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Content Selection & Creation Phase\n**Nodes Involved**: Get Rows from Sheet → Random Product Selection → OpenAI Content Generation\n\n**What Happens**:\n- Reads all products from Google Sheets database\n- Identifies products with \"pending\" status (not yet posted)\n- Randomly selects one pending product for today's post\n- Sends product details to OpenAI GPT-4 for content creation\n- Generates two platform-specific versions in Latvian language",
+        "height": 1072,
+        "width": 608,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        -544
+      ],
+      "typeVersion": 1,
+      "id": "20992e76-d046-4025-a74f-da008c68ea0a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Media Processing & Publishing Phase\n**Nodes Involved**: Download Product Image → Facebook Publishing → Instagram Rate Limit Check → Instagram Media Container → Instagram Error Handling → Instagram Post Publication\n\n**What Happens**:\n- Downloads high-quality product image from your website\n- Publishes to Facebook page with longer-form content and image\n- Checks Instagram daily posting limits (max 20 posts/day via API)\n- Creates Instagram media container with optimized content and hashtags\n- Handles any Instagram API errors gracefully\n- Publishes final Instagram post if within rate limits",
+        "height": 1072,
+        "width": 720,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1232,
+        -544
+      ],
+      "typeVersion": 1,
+      "id": "2d5990c9-0ca7-4bbd-a600-0dc7e28b741f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Status Tracking & Database Update Phase\n**Nodes Involved**: Combine Post Results → Merge Post Results → Update Product Status\n\n**What Happens**:\n- Consolidates results from both Facebook and Instagram publishing attempts\n- Determines overall posting status (both successful, partial success, or failure)\n- Updates Google Sheets with posting results and timestamps\n- Records Facebook and Instagram post IDs for reference\n- Changes product status from \"pending\" to \"posted\"",
+        "height": 1072,
+        "width": 656,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1968,
+        -544
+      ],
+      "typeVersion": 1,
+      "id": "9525ccdc-17da-4178-981c-f2ef584a508b",
+      "name": "Sticky Note3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "XML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "XML": {
+      "main": [
+        [
+          {
+            "node": "Parse XML RSS feed data and structure products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Selecting random products",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Post Content with OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Download Product Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse XML RSS feed data and structure products": {
+      "main": [
+        [
+          {
+            "node": "Prepare individual products for Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare individual products for Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Selecting random products": {
+      "main": [
+        [
+          {
+            "node": "Generate Post Content with OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Product Image": {
+      "main": [
+        [
+          {
+            "node": "Publish to Facebook page",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check Instagram Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Media Container": {
+      "main": [
+        [
+          {
+            "node": "Handle Instagram Container Errors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish to Facebook page": {
+      "main": [
+        [
+          {
+            "node": "Combine Post Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Publish Instagram Post": {
+      "main": [
+        [
+          {
+            "node": "Combine Post Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Handle Instagram Container Errors": {
+      "main": [
+        [
+          {
+            "node": "Publish Instagram Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Instagram Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Instagram Media Container",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Post Results": {
+      "main": [
+        [
+          {
+            "node": "Merge Post Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Post Results": {
+      "main": [
+        [
+          {
+            "node": "Update Product Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataSuccessExecution": "none",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "OxSyNU761pD6kF02",
+    "timezone": "Europe/Riga"
+  },
+  "versionId": "4d6e0e90-948e-4cf9-8fc4-392d4d4605cf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3c1bb73204d68c792dce11bd22f499de61da1bd4bce6a555cb2532d60421b6cc"
+  },
+  "id": "BJR7KFT85bN22yYS",
+  "tags": []
+}
